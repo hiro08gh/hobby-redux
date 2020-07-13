@@ -37,10 +37,10 @@ export default class Store<T, S> {
     }
   };
 
-  public unsubscribe(listener: Listener<T>): void {
+  public unsubscribe = (listener: Listener<T>): void => {
     const index = this.listener.indexOf(listener);
     if (index !== -1) {
       this.listener.splice(index, 1);
     }
-  }
+  };
 }
