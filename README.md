@@ -1,4 +1,4 @@
-# small-redux
+# hobby-redux
 Small configuration state management like Redux. It's hobby.
 
 ## WIP
