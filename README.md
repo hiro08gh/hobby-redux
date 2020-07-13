@@ -1,6 +1,10 @@
 # small-redux
 Small configuration state management like Redux. It's hobby.
 
+## WIP
+
+stateが上手く取れてないので修正
+
 ## Usage
 
 ```typescript
