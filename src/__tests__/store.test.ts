@@ -1,11 +1,11 @@
-import store from '../store';
+import Store from '../store';
 import { counterReducer } from './helper/counterReducer';
 import { INCREMENT, DECREMENT } from './helper/actionTypes';
 
 describe('store.ts', () => {
   let store;
   beforeEach(() => {
-    store = store.createStore(counterReducer);
+    store = new Store(counterReducer);
   });
 
   it('Initial state', () => {
