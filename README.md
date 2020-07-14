@@ -27,7 +27,7 @@ const reducer = (state: number, action: CounterAction) => {
 const store = new Store(reducer);
 
 const incrementAction = { type: 'INCREMENT' };
-const decrementAction = { type: 'INCREMENT' };
+const decrementAction = { type: 'DECREMENT' };
 
 store.subscribe(fn);
 
