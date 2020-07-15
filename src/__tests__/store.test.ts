@@ -1,15 +1,24 @@
 import Store from '../store';
-import { counterReducer } from './helper/counterReducer';
-import { INCREMENT, DECREMENT } from './helper/actionTypes';
+
+const INCREMENT = 'INCREMENT';
+const DECREMENT = 'DECREMENT';
+
+/* eslint-disable */
+const reducer = (state = 0, action) => {
+  switch (action.type) {
+    case 'INCREMENT':
+      return state + 1;
+    case 'DECREMENT':
+      return state - 1;
+    default:
+      return state;
+  }
+};
 
 describe('store.ts', () => {
   let store;
   beforeEach(() => {
-    store = new Store(counterReducer);
-  });
-
-  it('Initial state', () => {
-    expect(store.getState().toBe(0));
+    store = new Store(reducer);
   });
 
   it('INCREMENT and DECREMENT test', () => {

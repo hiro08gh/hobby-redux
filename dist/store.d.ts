@@ -1,4 +1,4 @@
-declare type Listener<State> = (newState: State) => void;
+declare type Listener<S> = (newState: S) => void;
 declare type Fixme<T = any> = any;
 declare type Reducer<T, S> = (state: T, action: S) => T;
 export default class Store<T, S> {
