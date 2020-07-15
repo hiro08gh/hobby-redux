@@ -1,4 +1,4 @@
-type Listener<State> = (newState: State) => void;
+type Listener<S> = (newState: S) => void;
 
 /* eslint-disable */
 type Fixme<T = any> = any;

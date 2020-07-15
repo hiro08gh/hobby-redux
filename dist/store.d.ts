@@ -1,13 +1,14 @@
 declare type Listener<State> = (newState: State) => void;
-declare type Reducer<T, U> = (state: T, action: U) => T;
+declare type Fixme<T = any> = any;
+declare type Reducer<T, S> = (state: T, action: S) => T;
 export default class Store<T, S> {
     private state;
     private reducer;
     private listener;
-    constructor(reducer: Reducer<T, S>, state?: any);
+    constructor(reducer: Reducer<T, S>, state?: Fixme);
     getState: () => T;
-    dispatch: (action: any) => void;
+    dispatch: (action: Fixme) => void;
     subscribe: (listener: Listener<T>) => void;
-    unsubscribe(listener: Listener<T>): void;
+    unsubscribe: (listener: Listener<T>) => void;
 }
 export {};

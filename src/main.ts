@@ -2,7 +2,7 @@ import Store from './store';
 
 type CounterAction = { type: 'INCREMENT' } | { type: 'DECREMENT' };
 
-const reducer = (state: number, action: CounterAction) => {
+const reducer = (state: any = 0, action: CounterAction) => {
   switch (action.type) {
     case 'INCREMENT':
       return state + 1;
@@ -16,7 +16,7 @@ const reducer = (state: number, action: CounterAction) => {
 const store = new Store(reducer);
 
 const incrementAction = { type: 'INCREMENT' };
-const decrementAction = { type: 'INCREMENT' };
+const decrementAction = { type: 'DECREMENT' };
 
 store.subscribe(fn);
 
@@ -28,6 +28,5 @@ store.dispatch(incrementAction);
 // => 1
 store.dispatch(incrementAction);
 // => 2
-//
 store.dispatch(decrementAction);
 // => 1

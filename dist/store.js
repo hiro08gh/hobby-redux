@@ -15,15 +15,15 @@ class Store {
                 this.listener.push(listener);
             }
         };
+        this.unsubscribe = (listener) => {
+            const index = this.listener.indexOf(listener);
+            if (index !== -1) {
+                this.listener.splice(index, 1);
+            }
+        };
         this.state = state;
         this.reducer = reducer;
         this.listener = [];
-    }
-    unsubscribe(listener) {
-        const index = this.listener.indexOf(listener);
-        if (index !== -1) {
-            this.listener.splice(index, 1);
-        }
     }
 }
 exports.default = Store;
