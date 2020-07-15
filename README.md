@@ -53,4 +53,4 @@ $ yarn build
 
 ## author
 
-[hiro08g](https://github.com/hiro08gh)
+[hiro08gh](https://github.com/hiro08gh)
