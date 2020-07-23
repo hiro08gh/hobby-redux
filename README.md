@@ -1,5 +1,5 @@
 # hobby-redux
-Small configuration state management like Redux. It's hobby.
+Small configuration state management like Redux. It's a hobby.
 
 ## Usage
 
