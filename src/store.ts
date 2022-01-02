@@ -10,7 +10,7 @@ type Action<T extends string> = {
 
 type Reducer<T, S> = (state: T, action: S) => T;
 
-export default class Store<T, S> {
+export class Store<T, S> {
   private state: T;
   private reducer: Reducer<T, S>;
   private listener: Array<Listener<T>>;
