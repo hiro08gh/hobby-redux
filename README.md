@@ -5,7 +5,7 @@ Small configuration state management like Redux. It's a hobby.
 
 ```typescript
 //import store file.
-import Store from './store';
+import { Store } from './store';
 
 type CounterAction = { type: 'INCREMENT' } | { type: 'DECREMENT' };
 
