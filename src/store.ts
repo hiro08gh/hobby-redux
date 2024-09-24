@@ -1,46 +1,43 @@
 type Listener<S> = (newState: S) => void;
 
-/* eslint-disable */
-type Fixme<T = any> = any;
-
-type Action<T extends string> = {
+export type Action<T extends string, P = unknown> = {
   type: T;
-  payload?: T;
+  payload?: P;
 };
 
-type Reducer<T, S> = (state: T, action: S) => T;
+type Reducer<T, S extends Action<string>> = (
+  state: T | undefined,
+  action: S
+) => T;
 
-export class Store<T, S> {
-  private state: T;
+export class Store<T, S extends Action<string>> {
+  private state: T | undefined;
   private reducer: Reducer<T, S>;
-  private listener: Array<Listener<T>>;
+  private listeners: Listener<T>[];
 
-  constructor(reducer: Reducer<T, S>, state?: Fixme) {
-    this.state = state;
+  constructor(reducer: Reducer<T, S>, initialState?: T) {
+    this.state = initialState;
     this.reducer = reducer;
-    this.listener = [];
+    this.listeners = [];
   }
 
-  public getState = (): T => {
+  public getState = (): T | undefined => {
     return this.state;
   };
 
-  public dispatch = (action: Fixme): void => {
+  public dispatch = (action: S): void => {
     this.state = this.reducer(this.state, action);
-    this.listener.forEach((s) => s(this.state));
+    for (const listener of this.listeners) {
+      listener(this.state);
+    }
   };
 
-  public subscribe = (listener: Listener<T>): void => {
-    const index = this.listener.push(listener);
-    if (index === -1) {
-      this.listener.push(listener);
-    }
+  public subscribe = (listener: Listener<T>): (() => void) => {
+    this.listeners.push(listener);
+    return () => this.unsubscribe(listener);
   };
 
   public unsubscribe = (listener: Listener<T>): void => {
-    const index = this.listener.indexOf(listener);
-    if (index !== -1) {
-      this.listener.splice(index, 1);
-    }
+    this.listeners = this.listeners.filter((l) => l !== listener);
   };
 }

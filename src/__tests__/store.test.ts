@@ -1,56 +1,70 @@
-import { Store } from '../store';
+import { describe, it, expect, vi } from "vitest";
+import { Store } from "../store";
+import type { Action } from "../store";
 
-// actions type
-const INCREMENT = 'INCREMENT';
-const DECREMENT = 'DECREMENT';
-const ADD_TODO = 'ADD_TODO';
-
-const counterReducer = (state = 0, action) => {
+const counterReducer = (
+  state: number | undefined,
+  action: Action<string, number>
+): number => {
+  if (state === undefined) return 0;
   switch (action.type) {
-    case 'INCREMENT':
-      return state + 1;
-    case 'DECREMENT':
-      return state - 1;
+    case "INCREMENT":
+      return state + (action.payload ?? 1);
+    case "DECREMENT":
+      return state - (action.payload ?? 1);
     default:
       return state;
   }
 };
 
-const todoReducer = (state: any = [], action) => {
-  switch (action.type) {
-    case 'ADD_TODO':
-      return [...state, { text: action.text }];
-    default:
-      return state;
-  }
-};
-
-describe('store.ts', () => {
-  describe('counter', () => {
-    let store;
-    beforeEach(() => {
-      store = new Store(counterReducer);
-    });
-    it('INCREMENT and DECREMENT test', () => {
-      store.dispatch({ type: INCREMENT });
-      expect(store.getState()).toBe(1);
-      store.dispatch({ type: INCREMENT });
-      expect(store.getState()).toBe(2);
-      store.dispatch({ type: DECREMENT });
-      expect(store.getState()).toBe(1);
-    });
+describe("Store", () => {
+  it("should initialize with initialState if provided", () => {
+    const store = new Store(counterReducer, 10);
+    expect(store.getState()).toBe(10);
   });
 
-  describe('todo', () => {
-    let store;
-    beforeEach(() => {
-      store = new Store(todoReducer);
-    });
-    it('ADD_TODO test', () => {
-      store.dispatch({ type: ADD_TODO, text: 'text' });
-      expect(store.getState()).toEqual([{ text: 'text' }]);
-      store.dispatch({ type: ADD_TODO, text: 'text2' });
-      expect(store.getState()).toEqual([{ text: 'text' }, { text: 'text2' }]);
-    });
+  it("should initialize with undefined state if no initialState is provided", () => {
+    const store = new Store(counterReducer);
+    expect(store.getState()).toBe(undefined);
+  });
+
+  it("should update state with dispatch", () => {
+    const store = new Store(counterReducer, 0);
+    store.dispatch({ type: "INCREMENT" });
+    expect(store.getState()).toBe(1);
+
+    store.dispatch({ type: "INCREMENT", payload: 5 });
+    expect(store.getState()).toBe(6);
+
+    store.dispatch({ type: "DECREMENT", payload: 2 });
+    expect(store.getState()).toBe(4);
+  });
+
+  it("should notify listeners when state changes", () => {
+    const store = new Store(counterReducer, 0);
+    const listener = vi.fn();
+
+    store.subscribe(listener);
+    store.dispatch({ type: "INCREMENT" });
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith(1);
+  });
+
+  it("should unsubscribe listeners correctly", () => {
+    const store = new Store(counterReducer, 0);
+    const listener = vi.fn();
+
+    const unsubscribe = store.subscribe(listener);
+    store.dispatch({ type: "INCREMENT" });
+
+    expect(listener).toHaveBeenCalledTimes(1);
+    expect(listener).toHaveBeenCalledWith(1);
+
+    unsubscribe();
+
+    store.dispatch({ type: "INCREMENT" });
+
+    expect(listener).toHaveBeenCalledTimes(1);
   });
 });

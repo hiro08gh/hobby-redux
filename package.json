@@ -1,28 +1,18 @@
 {
-  "name": "small-redux",
+  "name": "hobby-redux",
   "version": "1.0.0",
   "main": "index.js",
   "author": "hiro08gh",
   "license": "MIT",
   "devDependencies": {
-    "@types/jest": "26.0.4",
-    "@types/node": "14.0.23",
-    "@typescript-eslint/eslint-plugin": "3.6.1",
-    "@typescript-eslint/parser": "3.6.1",
-    "eslint": "7.4.0",
-    "eslint-config-prettier": "6.11.0",
-    "eslint-plugin-prettier": "3.1.4",
-    "jest": "26.3.0",
-    "prettier": "2.0.5",
-    "ts-jest": "26.1.2",
-    "typescript": "3.9.7"
+    "@biomejs/biome": "1.9.2",
+    "vitest": "^2.1.1"
   },
   "scripts": {
     "build": "tsc -p .",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test": "vitest"
+  },
+  "dependencies": {
+    "typescript": "^5.6.2"
   }
 }

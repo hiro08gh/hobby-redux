@@ -1,29 +1,27 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Store = void 0;
 class Store {
-    constructor(reducer, state) {
+    constructor(reducer, initialState) {
         this.getState = () => {
             return this.state;
         };
         this.dispatch = (action) => {
             this.state = this.reducer(this.state, action);
-            this.listener.forEach((s) => s(this.state));
+            for (const listener of this.listeners) {
+                listener(this.state);
+            }
         };
         this.subscribe = (listener) => {
-            const index = this.listener.push(listener);
-            if (index === -1) {
-                this.listener.push(listener);
-            }
+            this.listeners.push(listener);
+            return () => this.unsubscribe(listener);
         };
         this.unsubscribe = (listener) => {
-            const index = this.listener.indexOf(listener);
-            if (index !== -1) {
-                this.listener.splice(index, 1);
-            }
+            this.listeners = this.listeners.filter((l) => l !== listener);
         };
-        this.state = state;
+        this.state = initialState;
         this.reducer = reducer;
-        this.listener = [];
+        this.listeners = [];
     }
 }
-exports.default = Store;
+exports.Store = Store;

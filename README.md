@@ -1,10 +1,10 @@
 # hobby-redux
+
 Small configuration state management like Redux. It's a hobby.
 
 ## Usage
 
 ```typescript
-//import store file.
 import { Store } from './store';
 
 type CounterAction = { type: 'INCREMENT' } | { type: 'DECREMENT' };
@@ -42,15 +42,15 @@ store.dispatch(decrementAction);// => 1
 ## test
 
 ```bash
-$ yarn test
+$ npm run test
 ```
 
 ## build
 
 ```bash
-$ yarn build
+$ npm run build
 ```
 
-## author
+## Author
 
 [hiro08gh](https://github.com/hiro08gh)
