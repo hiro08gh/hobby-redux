@@ -9,7 +9,7 @@ import { Store } from './store';
 
 type CounterAction = { type: 'INCREMENT' } | { type: 'DECREMENT' };
 
-const reducer = (state: any = 0, action: CounterAction) => {
+const reducer = (state: number = 0, action: CounterAction) => {
   switch (action.type) {
     case 'INCREMENT':
       return state + 1;
@@ -53,4 +53,4 @@ $ npm run build
 
 ## Author
 
-[hiro08gh](https://github.com/hiro08gh)
+[@hiro08gh](https://github.com/hiro08gh)
